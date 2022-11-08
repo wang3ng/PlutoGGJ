@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public Vector3 StartPostion;
     public float PlayerSpeed;
-    public float MoveX;
+    private float MoveX;
     private Rigidbody2D rd;
     // Use this for initialization
     void Start()

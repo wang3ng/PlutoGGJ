@@ -5,20 +5,46 @@ using UnityEngine;
 public class Sponer : MonoBehaviour
 {
     public GameObject satellites;
+    private Vector3 cameraPosition;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
-        Vector2 location;
-        for (int i = 0; i<= 100; i++)
+        satellites.GetComponent<Satellite>().Camera = this.gameObject;
+        for (int i = 0; i<= 200; i++)
         {
-            location = new Vector2(Random.Range(-10, 11), Random.Range(-10, 11));
-            Instantiate(satellites, location, Quaternion.identity);
+            startGenerateSatellites();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y,-10);
+    }
+    private void startGenerateSatellites()
+    {
+        cameraPosition = transform.position;
+        Vector2 location;
+        location = new Vector2(Random.Range(cameraPosition.x - 10, cameraPosition.x + 11),
+             Random.Range(cameraPosition.y - 10, cameraPosition.y + 11));
+        Instantiate(satellites, location, Quaternion.identity);
+        satellites.GetComponent<Satellite>().Camera = this.gameObject;
+    }
+
+    public void generateSatellites()
+    {
+        cameraPosition = transform.position;
+        Vector2 location;
+        float a = Random.value;
+        if(a < 0.25) location = new Vector2(Random.Range(cameraPosition.x + 8, cameraPosition.x + 11), 
+            Random.Range(cameraPosition.y-10, cameraPosition.y+11));
+        else if(a<0.5) location = new Vector2(Random.Range(cameraPosition.x - 10, cameraPosition.x + 11),
+            Random.Range(cameraPosition.y - 10, cameraPosition.y - 7));
+        else if (a < 0.75) location = new Vector2(Random.Range(cameraPosition.x - 10, cameraPosition.x + 11),
+               Random.Range(cameraPosition.y + 6, cameraPosition.y + 11));
+        else location = new Vector2(Random.Range(cameraPosition.x - 11, cameraPosition.x - 8),
+               Random.Range(cameraPosition.y - 10, cameraPosition.y + 11));
+        Instantiate(satellites, location, Quaternion.identity);
     }
 }
