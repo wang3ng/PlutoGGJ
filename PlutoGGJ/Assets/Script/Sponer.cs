@@ -11,7 +11,7 @@ public class Sponer : MonoBehaviour
     void Start()
     {
         satellites.GetComponent<Satellite>().Camera = this.gameObject;
-        for (int i = 0; i<= 200; i++)
+        for (int i = 0; i<= 50; i++)
         {
             startGenerateSatellites();
         }
